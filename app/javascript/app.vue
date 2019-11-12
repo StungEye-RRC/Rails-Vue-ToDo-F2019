@@ -11,14 +11,14 @@
           <span v-else>{{ todo.description }}</span>
         </label>
       </li>
-      <input 
-        ref="newItem" 
-        v-model.trim="newToDo"
-        @keyup.enter="createToDo"
-        placeholder="New To Do Item"
-        autofocus
-      />
     </ol>
+    <input 
+      ref="newItem" 
+      v-model.trim="newToDo"
+      @keyup.enter="createToDo"
+      placeholder="New To Do Item"
+      autofocus
+    />
   </div>
 </template>
 
@@ -46,4 +46,7 @@ export default {
 </script>
 
 <style scoped>
+div > input {
+  margin-left: 2em;
+}
 </style>
