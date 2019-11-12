@@ -11,20 +11,36 @@
           <span v-else>{{ todo.description }}</span>
         </label>
       </li>
+      <input 
+        ref="newItem" 
+        v-model.trim="newToDo"
+        @keyup.enter="createToDo"
+        placeholder="New To Do Item"
+        autofocus
+      />
     </ol>
   </div>
 </template>
 
 <script>
+import RailsAPI from "RailsApi.js";
+
 export default {
   data: function () {
     return {
-      todos: [] 
+      newToDo: "",
+      todos: []
     }
   },
-  mounted: function () {
-    const data_element = document.getElementById('todo-data');
-    this.todos = JSON.parse(data_element.getAttribute('data-todos'));
+  methods: {
+    createToDo: async function() {
+      const todo = await RailsAPI.createToDo(this.newToDo);
+      this.todos.push(todo);
+      this.newToDo = "";
+    }
+  },
+  mounted: async function () {
+    this.todos = await RailsAPI.getToDos(); 
   }
 }
 </script>
